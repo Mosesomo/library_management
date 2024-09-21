@@ -1,0 +1,124 @@
+/* static/style.css */
+:root {
+    --primary: #0463FA;
+    --light: #EFF5FF;
+    --dark: #1B2C51;
+}
+
+body {
+    background: var(--light);
+}
+
+.navbar {
+    position: relative;
+    top: 0;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    background: var(--dark);
+}
+
+.navbar .container-fluid .navbar-brand {
+    color: var(--light);
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.content {
+    padding: 27px;
+    box-shadow: 0 4px 8px 8px rgba(48, 6, 237, 0.1);
+    border-radius: 3px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.box {
+    width: 100%; /* Full width of the box */
+}
+
+.box .add {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.table {
+    width: 100%; /* Full width of the table */
+    margin-bottom: 0;
+}
+
+.box-header {
+    margin-bottom: 10px;
+}
+
+.box-body td img {
+    height: 70px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.box-body td p {
+    color: var(--dark);
+    font-weight: 500;
+}
+
+.container {
+    width: 100;
+    padding: 14px;
+}
+
+
+.content-section {
+    max-width: 476px;
+    margin: 45px auto;
+    width: 100%;
+    flex: 1 0 auto;
+    background: hsl(0, 0%, 100%);
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px 8px rgba(48, 6, 237, 0.1);
+    border-radius: 3px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.content-section .form-group {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.content-section .border-bottom {
+    text-align: center;
+    font-weight: 700;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.content-section .form-group .btn {
+    width: 100%;
+    color: #fff;
+    background-color: var(--dark);
+    transition: all ease-in .9s;
+}
+
+.content-section .form-group .btn:hover {
+    transform: scale(1.1);
+}
+
+.content-section .form-group .btn .btn-outline-info {
+    padding: 2px;
+}
+
+.form-group .form-control {
+    margin-bottom: 18px;
+}
+
+.form-group .form-control-label {
+    color: var(--dark);
+    font-size: 16px;
+}
+
+.form-group .form-control {
+    font-size: 16px;
+}
