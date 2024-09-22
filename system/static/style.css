@@ -44,6 +44,14 @@ body {
     width: 100%;
 }
 
+.add .d-flex {
+    align-items: center;
+}
+
+.add .d-flex .form-control {
+    width: auto;
+}
+
 .table {
     width: 100%; /* Full width of the table */
     margin-bottom: 0;
@@ -121,4 +129,12 @@ body {
 
 .form-group .form-control {
     font-size: 16px;
+}
+
+
+.alert {
+    max-width: 476px;
+    width: 100%;
+    margin: 45px auto;
+    flex: 1 0 auto;
 }
