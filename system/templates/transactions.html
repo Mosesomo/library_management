@@ -15,10 +15,10 @@
                     <thead>
                         <tr>
                             <th scope="col"># ID</th>
-                            <th scope="col">Book Name</th>
+                            <th scope="col">Book ID</th>
                             <th scope="col">Member</th>
                             <th scope="col">Date Issued</th>
-                            <th scope="col">Date Returned</th>
+                            <th scope="col">Return Date</th>
                             <th scope="col">Fee (KES)</th>
                         </tr>
                     </thead>
@@ -26,8 +26,8 @@
                         {% for transaction in transactions %}
                             <tr>
                                 <th scope="row">{{ transaction.id }}</th>
-                                <td>{{ transaction.book_id.title }}</td>
-                                <td>{{ transaction.member_id.email }}</td>
+                                <td>{{ transaction.book.id }}</td>
+                                <td>{{ transaction.member.name }}</td>
                                 <td>{{ transaction.issue_date.strftime('%d-%m-%Y') }}</td>
                                 <td>
                                     {% if transaction.return_date %}

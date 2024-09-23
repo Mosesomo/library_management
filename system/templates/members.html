@@ -14,7 +14,6 @@
                             <tr>
                                 <th scope="col"># ID</th>
                                 <th scope="col">Full Name</th>
-                                <th scope="col">Email</th>
                                 <th scope="col">Phone No.</th>
                                 <th scope="col">Debt</th>
                                 <th scope="col">Actions</th>
@@ -25,12 +24,11 @@
                                 <tr>
                                     <th scope="row">{{member.id}}</th>
                                     <td>{{member.name}}</td>
-                                    <td>{{member.email}}</td>
                                     <td>{{member.phone}}</td>
                                     <td>{{member.debt}}</td>
-                                    <td>
+                                    <td class="actions">
                                         <a href="{{url_for('updateMember', member_id=member.id)}}">
-                                            <button type="button" class='btn btn-primary btn-sm btn-flat'><i class='fa fa-edit'></i> Update</button>
+                                            <button type="button" class='btn btn-primary btn-sm edit btn-flat'><i class='fa fa-edit'></i> Update</button>
                                         </a>
                                         <button type="button" class='btn btn-danger btn-sm delete btn-flat'
                                         data-bs-toggle="modal" data-bs-target="#exampleModal{{member.id}}"><i

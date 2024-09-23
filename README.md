@@ -35,8 +35,8 @@ This project is a **Library Management System** that allows administrators to ma
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/Mosesomo/library-management-system.git
-    cd library-management-system
+    git clone https://github.com/Mosesomo/library-management.git
+    cd library-management
     ```
 
 2. Create and activate a virtual environment:

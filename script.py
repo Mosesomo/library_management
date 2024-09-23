@@ -8,7 +8,6 @@ from system.model import Member, Transaction, Book
 with app.app_context():
     db.create_all()
     
-    '''
     book1 = Book(
         title="To Kill a Mockingbird",
         author="Harper Lee",
@@ -43,7 +42,7 @@ with app.app_context():
         stock=12
     )
     db.session.add(book5)
-    '''
+    
     member1 = Member(
         name="Moses Omondi",
         email="moses@gmail.com",

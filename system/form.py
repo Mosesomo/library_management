@@ -44,4 +44,5 @@ class TransactionForm(FlaskForm):
     book_id = IntegerField('Book ID', validators=[DataRequired(), NumberRange(min=0)])
     member_id = IntegerField('Member ID', validators=[DataRequired(), NumberRange(min=0)])
     issue_date = DateField('Issue Date', format='%Y-%m-%d', validators=[DataRequired()])
+    return_date = DateField('Return Date', format='%Y-%m-%d', validators=[DataRequired()])
     submit = SubmitField('Issue Book')

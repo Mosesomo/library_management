@@ -139,62 +139,53 @@ def search_books():
     
     return render_template('books.html', books=books)
 
-
+# Transaction
 @app.route('/transactions/new-transaction', methods=['GET', 'POST'])
 def newTransactions():
     form = TransactionForm()
 
-    if form.validate_on_submit():  # This checks if the form has been submitted and is valid
+    if form.validate_on_submit():
         # Extract data from the form
         book_id = form.book_id.data
         member_id = form.member_id.data
         issue_date = form.issue_date.data
-        return_date = request.form.get('return_date')  # Optional field, may or may not be in the form
+        return_date = form.return_date.data  # This should now be required on issuance
 
-        # Handle the return transaction
-        if return_date:
-            return_date = datetime.strptime(return_date, '%Y-%m-%d')
-            
-            # Check if there is an active transaction for this book and member
-            transaction = Transaction.query.filter_by(book_id=book_id, member_id=member_id, return_date=None).first()
-            
-            if transaction:
-                # Calculate the fee for the duration the book was issued
-                days_issued = (return_date - transaction.issue_date).days
-                rent_fee = days_issued * 50  # Example: KES 50 per day
+        # Validate the return date is after the issue date
+        if return_date < issue_date:
+            flash('Return date cannot be before the issue date.', 'danger')
+            return redirect(url_for('newTransactions'))
 
-                # Check the member's current debt and apply rent fee
-                member = Member.query.get(member_id)
-                if member.debt + rent_fee <= 500:
-                    member.debt += rent_fee
-                    book = Book.query.get(book_id)
-                    book.stock += 1  # Return book to stock
-                    transaction.return_date = return_date  # Mark transaction as returned
-                    transaction.fee = rent_fee  # Store the calculated fee in the transaction
-                    db.session.commit()
-                    flash(f'Book returned and a fee of KES {rent_fee} charged!', 'success')
-                else:
-                    flash('Member’s debt exceeds the limit of KES 500.', 'danger')
+        # Check if the book exists and has available stock
+        book = Book.query.get(book_id)
+        if book and book.stock > 0:
+            # Calculate the rent fee based on the duration the book is issued for
+            days_issued = (return_date - issue_date).days
+            rent_fee = days_issued * 50  # Example: KES 50 per day
+
+            # Check if the member's debt will exceed the limit after adding the fee
+            member = Member.query.get(member_id)
+            if member.debt + rent_fee <= 500:
+                # Issue the book and create a new transaction
+                new_transaction = Transaction(
+                    book_id=book_id, 
+                    member_id=member_id, 
+                    issue_date=issue_date, 
+                    return_date=return_date,
+                    fee=rent_fee
+                )
+                db.session.add(new_transaction)
+                
+                # Reduce the book stock by 1
+                book.stock -= 1
+                member.debt += rent_fee  # Add the fee to the member's debt
+                db.session.commit()
+
+                flash(f'Book issued successfully! Rent fee: KES {rent_fee}', 'success')
             else:
-                flash('No active transaction found for this book and member.', 'danger')
-
-        # Handle issuing a new book
+                flash('Member’s debt exceeds the limit of KES 500.', 'danger')
         else:
-            # Check if there is enough stock
-            book = Book.query.get(book_id)
-            if book and book.stock > 0:
-                # Check if the book is already issued and not yet returned (prevent duplicate issues)
-                active_transaction = Transaction.query.filter_by(book_id=book_id, member_id=member_id, return_date=None).first()
-                if not active_transaction:
-                    new_transaction = Transaction(book_id=book_id, member_id=member_id, issue_date=issue_date)
-                    db.session.add(new_transaction)
-                    book.stock -= 1  # Decrease book stock
-                    db.session.commit()
-                    flash('Book issued successfully!', 'success')
-                else:
-                    flash('This book is already issued to the member and not yet returned.', 'warning')
-            else:
-                flash('No copies of the book are available.', 'danger')
+            flash('No copies of the book are available.', 'danger')
 
         return redirect(url_for('transactions'))
 

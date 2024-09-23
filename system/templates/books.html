@@ -10,7 +10,7 @@
                     </a>
                     <!-- Search Form -->
                     <form class="d-flex" action="{{ url_for('search_books') }}" method="GET">
-                        <input class="form-control me-2 w-auto" type="search" name="query" placeholder="Search for books by title or author" aria-label="Search">
+                        <input class="form-control me-2" type="search" name="query" placeholder="Search for books by title or author" aria-label="Search">
                         <button class="btn btn-outline-dark" type="submit">Search</button>
                     </form>
                     <!-- End of Search Form -->
@@ -37,7 +37,7 @@
                                     <td>{{book.title}}</td>
                                     <td>{{book.author}}</td>
                                     <td>{{book.stock}}</td>
-                                    <td>
+                                    <td class="actions">
                                         <a href="{{url_for('updateBook', book_id=book.id)}}" >
                                             <button type="button" class='btn btn-primary btn-sm btn-flat'><i class='fa fa-edit'></i> Update</button>
                                         </a>
