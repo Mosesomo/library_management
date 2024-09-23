@@ -29,8 +29,12 @@ class Transaction(db.Model):
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
     member_id = db.Column(db.Integer, db.ForeignKey('member.id'), nullable=False)
     issue_date = db.Column(db.Date, nullable=False) 
-    return_date = db.Column(db.Date)
+    return_date = db.Column(db.Date, nullable=True)
     fee = db.Column(db.Float, default=0.0)
+    
+    # Relationship to access the book and member details
+    book = db.relationship('Book', backref='transactions')
+    member = db.relationship('Member', backref='transactions')
 
     # String representation of the Transaction model for easier debugging
     def __repr__(self):
